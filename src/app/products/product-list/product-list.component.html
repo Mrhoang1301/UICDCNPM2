@@ -1,0 +1,45 @@
+<div class="text-center mt-3">
+    <a [routerLink]="['/admin/products/home']" class="home">Home</a>
+</div>
+
+<div class="container mt-3">
+    <form #form="ngForm" class="d-flex mb-3" (ngSubmit)="loadProducts()" autocomplete="off">
+        <div class="d-flex px-2">
+            <label class="col-form-label me-2">Category:</label>
+            <select name="type" style="width: 130px;" class="form-select ms-1" [(ngModel)]="userParams.category">
+                <option [value]="category.name" *ngFor="let category of categories">
+                    {{category.name}}
+                </option>
+            </select>
+        </div>
+
+
+        <div class="col">
+            <div class="btn-group float-end">
+                <input type="radio" class="btn-check" ng-control="options" [value]="'oldest'" name="orderBy"
+                    [(ngModel)]="userParams.orderBy" id="btnradio1" checked>
+                <label class="btn btn-danger" for="btnradio1">oldest product</label>
+
+                <input type="radio" class="btn-check" ng-control="options" [value]="'newest'" name="orderBy"
+                    [(ngModel)]="userParams.orderBy" id="btnradio2">
+                <label class=" btn btn-danger" for="btnradio2">Newest product</label>
+            </div>
+        </div>
+        <button class="btn btn-primary ms-1" type="submit">Apply Filters</button>
+        <button (click)="resetFilters()" class="btn btn-danger ms-1" type="submit">Reset Filters</button>
+        <a [routerLink]="['/admin/products/add']" class="btn btn-primary">Add Products</a>
+    </form>
+
+
+
+</div>
+
+<div class="row">
+    <div class="col-2"
+        *ngFor="let product of products | paginate: { itemsPerPage: pagination?.pageSize, currentPage: pagination?.pageNumber,totalItems: pagination?.pageCount}">
+        <app-product-card [product] = "product"></app-product-card>
+    </div>
+</div>
+<div class="d-flex justify-content-center my-pagination" *ngIf="pagination">
+    <pagination-controls (pageChange)="change($event)"></pagination-controls>
+</div>

@@ -1,0 +1,9 @@
+.home{
+    text-decoration: none !important;
+    text-align: center;
+    font-size: 50px;
+    height: 100px;
+    padding-top: 40px;
+    color: #000;
+    letter-spacing: .1em;
+}
